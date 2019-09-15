@@ -2,14 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="4b12b3f4-48b5-43d1-b95e-bb9e4dfe87d4" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/ComplexNumber.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/TicTacToe.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/TicTacToeDriver.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Obj_o_practice/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../Obj_o_practice/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Mod_3/TicTacToe.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Mod_3/TicTacToe.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Mod_3/TicTacToeDriver.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Mod_3/TicTacToeDriver.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/TicTacToe.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/TicTacToe.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/TicTacToeDriver.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/TicTacToeDriver.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../Obj_o_practice/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../Obj_o_practice/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Obj_o_practice/src/Circle.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Obj_o_practice/src/Circle.java" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -105,16 +103,5 @@
         </entry>
       </map>
     </option>
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/TicTacToeDriver.java</url>
-          <line>21</line>
-          <option name="timeStamp" value="2" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
   </component>
 </project>

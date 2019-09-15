@@ -21,15 +21,14 @@ public class TicTacToeDriver {
         while(count < 9){
             thisGame.whoTurn();
             thisGame.addMove();
-            thisGame.winner();
+            if(thisGame.winner()){
+                thisGame.isWinner();
+            }
+
             thisGame.isWinner();
             thisGame.printBoard();
             count ++;
         }
-
-
-
-
 
     }
 }

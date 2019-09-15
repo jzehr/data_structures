@@ -49,7 +49,6 @@ public class TicTacToe {
             this.board[2][2] = marker;
         }
 
-        winner();
     }
 
     // whos turn
@@ -60,7 +59,7 @@ public class TicTacToe {
             isXTurn = false;
         } else{
             System.out.println("Y is up");
-            marker = "0";
+            marker = "O";
             isXTurn= true;
 
         }
@@ -140,6 +139,8 @@ public class TicTacToe {
     public void restartGame(){
         if(winner){
             System.out.println("done");
+            makeBoard();
+            printBoard();
         }else{
             whoTurn();
         }
