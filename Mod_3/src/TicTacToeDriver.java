@@ -24,8 +24,6 @@ public class TicTacToeDriver {
             if(thisGame.winner()){
                 thisGame.isWinner();
             }
-
-            thisGame.isWinner();
             thisGame.printBoard();
             count ++;
         }

@@ -4,7 +4,7 @@ public class TicTacToe {
     private String[][] board;
     private boolean isXTurn;
     private String marker;
-    private boolean winner;
+    public boolean winner;
 
     public void makeBoard(){
         int counter = 0;
@@ -48,6 +48,7 @@ public class TicTacToe {
         }else if(move.equalsIgnoreCase("8")){
             this.board[2][2] = marker;
         }
+        winner();
 
     }
 
@@ -55,12 +56,12 @@ public class TicTacToe {
     public void whoTurn(){
         if(isXTurn){
             System.out.println("X is up");
-            marker = "X";
-            isXTurn = false;
+            this.marker = "X";
+            this.isXTurn = false;
         } else{
             System.out.println("Y is up");
-            marker = "O";
-            isXTurn= true;
+            this.marker = "O";
+            this.isXTurn= true;
 
         }
     }
@@ -82,7 +83,7 @@ public class TicTacToe {
         for (int i = 0; i < this.board.length; i++) {
             if(this.board[i][0].equals(this.board[i][1])){
                 if(this.board[i][0].equals(this.board[i][2])){
-                    winner = true;
+                    this.winner = true;
                     return winner;
                 }
             }
@@ -91,8 +92,8 @@ public class TicTacToe {
         for (int i = 0; i < this.board.length; i++) {
             for (int j = 0; j < this.board[1].length; j++) {
                 if(this.board[0][j].equals(this.board[1][j])){
-                    if(this.board[0][j].equals(this.board[1][j])){
-                        winner = true;
+                    if(this.board[0][j].equals(this.board[2][j])){
+                        this.winner = true;
                         return winner;
                     }
 
@@ -104,7 +105,7 @@ public class TicTacToe {
         // check crosses one way
         if(this.board[0][0].equals(this.board[2][2])){
             if(this.board[0][0].equals(this.board[1][1])){
-                winner = true;
+                this.winner = true;
                 return winner;
             }
 
@@ -113,7 +114,7 @@ public class TicTacToe {
         // check crosses another way
         if(this.board[0][2].equals(this.board[2][0])){
             if(this.board[0][2].equals(this.board[1][1])){
-                winner = true;
+                this.winner = true;
                 return winner;
             }
 
@@ -124,8 +125,8 @@ public class TicTacToe {
 
     // tell who winner is
     public void isWinner() {
-        if(winner){
-            if(isXTurn){
+        if(winner()){
+            if(this.isXTurn){
                 System.out.println("Player X won!");
             }else{
                 System.out.println("Player Y won!");
