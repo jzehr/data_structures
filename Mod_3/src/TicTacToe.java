@@ -54,10 +54,11 @@ public class TicTacToe {
 
     // whos turn
     public void whoTurn(){
-        if(isXTurn){
+        if(this.isXTurn){
             System.out.println("X is up");
             this.marker = "X";
             this.isXTurn = false;
+
         } else{
             System.out.println("Y is up");
             this.marker = "O";
