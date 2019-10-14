@@ -1,11 +1,10 @@
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
 public class Main {
 
     // uniqueness
     public static <E> boolean unique(List<E> list){
+        //~ this was my way, I am going to keep it this way ~
         for (int i = 0; i < list.size(); i++) {
             for (int j = 0; j < list.size(); j++) {
                 if(j + 1 < list.size() && i != j){
@@ -17,6 +16,18 @@ public class Main {
         }
         return true;
     }
+        // this is the fastest way
+    /*  Set<E> set = new HashSet<>();
+        for(E item : list){
+            boolean couldAdd = set.add(item);
+            if(couldAdd == false){
+                return false;
+
+            }
+        }
+        return true;
+    }
+     */
 
     // all multiples
     public static List<Integer> allMultiples(List<Integer> list, int inNum){
@@ -63,7 +74,69 @@ public class Main {
         }
     }
 
+    // timing
+    public static <E> int howBig(ArrayList <E> list){
+        return list.size();
+    }
+
+    public static <E> boolean in(ArrayList <E> list, E item){
+        for (int i = 0; i < list.size(); i++) {
+            for (int j = 0; j < 10000; j++) {
+                System.out.print("");
+            }
+            if(list.get(i).equals(item)){
+                return true;
+
+            }
+
+        }
+        return false;
+    }
+
+    public static int sum(ArrayList<Integer> list){
+        int total = 0;
+        for (int i = 0; i < list.size(); i++) {
+            total += list.get(i);
+        }
+        return total;
+    }
+
+    public static <E> boolean allUnique(ArrayList <E> list){
+
+        for (int i = 0; i < list.size(); i++) {
+            E firstItem = list.get(i); // O(1)
+            for (int j = 0; j < list.size(); j++) { // n
+                if(i == j){
+                    continue;
+                }
+
+                E secondItem = list.get(j); // O(1)
+                if(firstItem.equals(secondItem)){ // O(1)
+                    return false;
+
+                }
+            }
+        }
+
+        return true;
+    }
+
     public static void main(String[] args) {
+
+        // quadratic
+        ArrayList<Integer> list_1 = new ArrayList<>();
+        for (int i = 0; i < 50000; i++) {
+            list_1.add(i);
+        }
+
+
+        long start_1 = System.currentTimeMillis();
+        System.out.println(allUnique(list_1));
+        long end_1 = System.currentTimeMillis();
+        System.out.println(end_1-start_1);
+
+
+        /*
         //unique
         ArrayList<Integer> Unique1 = new ArrayList<>(Arrays.asList(0, 3, 5, 7, 7, 9));
         boolean out1 = unique(Unique1);
@@ -94,5 +167,34 @@ public class Main {
         ArrayList<Integer> RemoveList = new ArrayList<>(Arrays.asList(1,23,4,5,3,3,3,4,8,9,3,10));
         removeAllInstances(RemoveList, 3);
         System.out.println(RemoveList);
+
+
+        //size constant
+        System.out.println(howBig(RemoveList));
+
+        //size linear 1
+        ArrayList<Integer> list = new ArrayList<>();
+        for (int i = 0; i < 1000; i++) {
+            list.add(i);
+        }
+        long start = System.currentTimeMillis();
+        //in(list, -13);
+        long end = System.currentTimeMillis();
+
+        System.out.println(end-start);
+
+        //size linear 2
+        ArrayList<Integer> list_1 = new ArrayList<>();
+        for (int i = 0; i < 5000; i++) {
+            list_1.add(i);
+        }
+
+
+        long start_1 = System.currentTimeMillis();
+        System.out.println(sum(list_1));
+        long end_1 = System.currentTimeMillis();
+        System.out.println(end_1-start_1);
+        */
+
     }
 }
