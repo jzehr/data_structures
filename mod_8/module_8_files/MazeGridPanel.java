@@ -53,44 +53,34 @@ public class MazeGridPanel extends JPanel{
 
 
 			if(!current.northWall && !visited(current.row-1, current.col)){
-				stack.push(current);
+				Cell move = maze[current.row-1][current.col];
+				stack.push(move);
 				continue;
 			}
 
-			if(!current.eastWall){
+			if(!current.eastWall && !visited(current.row, current.col+1)){
 				Cell move = maze[current.row][current.col + 1];
-				if (!visited(move.row, move.col)) {
-					stack.push(move);
-					continue;
-				}
+				stack.push(move);
+				continue;
 			}
 
-			if(!current.southWall){
+			if(!current.southWall && !visited(current.row+1, current.col)){
 				Cell move = maze[current.row + 1][current.col];
-				if (!visited(move.row, move.col)) {
-					stack.push(move);
-					continue;
-				}
+				stack.push(move);
+				continue;
 			}
 
-			if(!current.westWall){
+			if(!current.westWall && !visited(current.row, current.col-1)){
 				Cell move = maze[current.row][current.col - 1];
-				if (!visited(move.row, move.col)) {
-					stack.push(move);
-					continue;
-				}
+				stack.push(move);
+				continue;
 			}
 
 			current.setBackground(Color.GRAY);
 			Cell bad = stack.pop();
 		}
 	}
-
-
 	
-
-	
-
 
 	public boolean visited(int row, int col) {
 		Cell c = maze[row][col];

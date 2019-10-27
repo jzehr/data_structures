@@ -9,7 +9,7 @@ public class Maze extends JFrame {
 	public Maze() {
 		
 		//this.add(new MazeGridPanelSolution(20,20));
-		this.add(new MazeGridPanel(10,10));
+		this.add(new MazeGridPanel(20,20));
 		this.setSize(800, 800);
 	
 		
