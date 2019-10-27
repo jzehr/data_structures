@@ -46,35 +46,41 @@ public class MazeGridPanel extends JPanel{
 				current.setBackground(Color.GREEN);
 			}
 
-			// check for north wall
-			if(!current.northWall){
-				Cell newCell = maze[current.row - 1][current.col];
-				if (!visited(newCell.row, newCell.col)) {
-					stack.push(newCell);
-					continue;
-				}
+			/*
+			want to add a switch statement but not sure how to
+			with the type that we have
+			*/
+
+
+			if(!current.northWall && !visited(current.row-1, current.col)){
+				stack.push(current);
+				continue;
 			}
-			if(!current.southWall){
-				Cell newCell = maze[current.row + 1][current.col];
-				if (!visited(newCell.row, newCell.col)) {
-					stack.push(newCell);
-					continue;
-				}
-			}
+
 			if(!current.eastWall){
-				Cell newCell = maze[current.row][current.col + 1];
-				if (!visited(newCell.row, newCell.col)) {
-					stack.push(newCell);
+				Cell move = maze[current.row][current.col + 1];
+				if (!visited(move.row, move.col)) {
+					stack.push(move);
 					continue;
 				}
 			}
+
+			if(!current.southWall){
+				Cell move = maze[current.row + 1][current.col];
+				if (!visited(move.row, move.col)) {
+					stack.push(move);
+					continue;
+				}
+			}
+
 			if(!current.westWall){
-				Cell newCell = maze[current.row][current.col - 1];
-				if (!visited(newCell.row, newCell.col)) {
-					stack.push(newCell);
+				Cell move = maze[current.row][current.col - 1];
+				if (!visited(move.row, move.col)) {
+					stack.push(move);
 					continue;
 				}
 			}
+
 			current.setBackground(Color.GRAY);
 			Cell bad = stack.pop();
 		}
