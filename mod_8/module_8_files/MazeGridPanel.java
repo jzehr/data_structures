@@ -80,7 +80,7 @@ public class MazeGridPanel extends JPanel{
 			Cell bad = stack.pop();
 		}
 	}
-	
+
 
 	public boolean visited(int row, int col) {
 		Cell c = maze[row][col];
