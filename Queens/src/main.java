@@ -1,114 +1,70 @@
-import java.util.*;
 
 public class main {
-/* Java program to solve N Queen Problem
-using backtracking */
-    static int N = 8;
-        /* ld is an array where its indices indicate row-col+N-1
-        (N-1) is for shifting the difference to store negative
-        indices */
-    static int []ld = new int[30];
+    /*
+    saw this clever trick to capture diagonal positions and
+    row positions... decided to use it in my code
+     */
+    static int[] leftDiag = new int[100];
+    static int[] rightDiag = new int[100];
+    static int[] rowCheck = new int[100];
 
-        /* rd is an array where its indices indicate row+col
-        and used to check whether a queen can be placed on
-        right diagonal or not*/
-    static int []rd = new int[30];
-
-        /*column array where its indices indicates column and
-        used to check whether a queen can be placed in that
-            row or not*/
-    static int []cl = new int[30];
-
-        /* A utility function to print solution */
-    static void printSolution(int board[][])
-    {
-        for (int i = 0; i < N; i++)
-        {
-            for (int j = 0; j < N; j++)
+    // print the solution of the board //
+    static void boardPrinter(int board[][], int queens) {
+        for (int i = 0; i < queens; i++) {
+            for (int j = 0; j < queens; j++)
                 System.out.printf(" %d ", board[i][j]);
-            System.out.printf("\n");
-        }
-    }
-
-        /* A recursive utility function to solve N
-        Queen problem */
-    static boolean solveNQUtil(int board[][], int col)
-    {
-    /* base case: If all queens are placed
-    then return true */
-        if (col >= N)
-            return true;
-
-    /* Consider this column and try placing
-    this queen in all rows one by one */
-        for (int i = 0; i < N; i++)
-        {
-
-        /* Check if the queen can be placed on
-        board[i][col] */
-        /* A check if a queen can be placed on
-        board[row][col].We just need to check
-        ld[row-col+n-1] and rd[row+coln] where
-        ld and rd are for left and right
-        diagonal respectively*/
-            if ((ld[i - col + N - 1] != 1 &&
-                    rd[i + col] != 1) && cl[i] != 1)
-            {
-                /* Place this queen in board[i][col] */
-                board[i][col] = 1;
-                ld[i - col + N - 1] =
-                        rd[i + col] = cl[i] = 1;
-
-                /* recur to place rest of the queens */
-                if (solveNQUtil(board, col + 1))
-                    return true;
-
-        /* If placing queen in board[i][col]
-        doesn't lead to a solution, then
-        remove queen from board[i][col] */
-                board[i][col] = 0; // BACKTRACK
-                ld[i - col + N - 1] =
-                        rd[i + col] = cl[i] = 0;
+                System.out.printf("\n");
             }
         }
 
-/* If the queen cannot be placed in any row in
-    this colum col then return false */
+    static boolean solveQueens(int board[][], int col, int queens) {
+        /*
+        check the column number, if its more than the number of queens,
+        then you have solved it
+         */
+        if (col >= queens)
+            return true;
+
+        /*
+        as you iterate through the row (i), you check the left diagonal,
+        the right diagonal, and the row you are in, if the move is valid,
+        then add a "1" to your board
+        */
+        for (int i = 0; i < queens; i++) {
+            int leftIndex = i - col + queens - 1;
+            int rightIndex = i + col;
+
+            if ((leftDiag[leftIndex] != 1 && rightDiag[rightIndex] != 1) && rowCheck[i] != 1) {
+                board[i][col] = 1;
+                leftDiag[leftIndex] = 1;
+                rightDiag[rightIndex] = 1;
+                rowCheck[i] = 1;
+
+                if (solveQueens(board, col + 1, 8)) {
+                    boardPrinter(board, 8);
+                    System.out.println("\n");
+                    System.exit(0);
+                    return true;
+                }
+
+                /*
+                if "if statement" above (left, right, row) doesnt return true,
+                set the variables to "0" and start again
+                 */
+                board[i][col] = 0;
+                leftDiag[leftIndex] = 0;
+                rightDiag[rightIndex] = 0;
+                rowCheck[i] = 0;
+            }
+        }
         return false;
     }
-    /* This function solves the N Queen problem using
-    Backtracking. It mainly uses solveNQUtil() to
-    solve the problem. It returns false if queens
-    cannot be placed, otherwise, return true and
-    prints placement of queens in the form of 1s.
-    Please note that there may be more than one
-    solutions, this function prints one of the
-    feasible solutions.*/
-    static boolean solveNQ()
-    {
-        int board[][] = {
-                { 0, 0, 0, 0, 0, 0, 0, 0 },
-                { 0, 0, 0, 0, 0, 0, 0, 0 },
-                { 0, 0, 0, 0, 0, 0, 0, 0 },
-                { 0, 0, 0, 0, 0, 0, 0, 0 },
-                { 0, 0, 0, 0, 0, 0, 0, 0 },
-                { 0, 0, 0, 0, 0, 0, 0, 0 },
-                { 0, 0, 0, 0, 0, 0, 0, 0 },
-                { 0, 0, 0, 0, 0, 0, 0, 0 }
-        };
 
-        if (solveNQUtil(board, 0) == false)
-        {
-            System.out.printf("Solution does not exist");
-            return false;
-        }
-
-        printSolution(board);
-        return true;
-    }
 
     public static void main(String[] args) {
-        solveNQ();
+        int board[][] = new int[8][8];
+        int queens = 8;
+        solveQueens(board, 0, 8);
     }
 }
 
