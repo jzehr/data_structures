@@ -50,6 +50,40 @@ public class bst<E extends Comparable<E>>{
         }
     }
 
+    public void remove(E item){
+        this.root = this.remove(this.root, item);
+    }
+
+    private Node<E> remove(Node<E> root, E item){
+        if(root == null){
+            return null;
+        }
+        int comparison = item.compareTo(root.item);
+        if(comparison < 0){
+            root.left = remove(root.left, item);
+            return root;
+        }else if(comparison > 0){
+            root.right = remove(root.right, item);
+            return root;
+        } else {
+            if (root.left == null && root.right == null) {
+                return null;
+            } else if (root.left != null && root.right == null) {
+                return root.left;
+            } else if (root.left == null && root.right != null) {
+                return root.right;
+            } else{
+                Node<E> current = root.left;
+                while(current.right != null){
+                    current = current.right;
+                }
+                root.item = current.item;
+                root.left = remove(root.left, root.item);
+                return root;
+            }
+        }
+    }
+
     public String toString(){
         StringBuilder sb = new StringBuilder();
         preOrderTrav(root, 1, sb);
@@ -73,9 +107,6 @@ public class bst<E extends Comparable<E>>{
         builder.append(" ");
         builder.append(toString(root.right));
         */
-
-
-
     }
 
     private static class Node<E>{
@@ -107,14 +138,16 @@ public class bst<E extends Comparable<E>>{
 
     public static void main(String[] args) {
         bst<Integer> b = new bst<>();
-        b.add(15);
-        b.add(50);
-        b.add(20);
-        b.add(10);
-        b.add(13);
-        b.add(12);
+        b.add(5);
+        b.add(9);
+        b.add(3);
         b.add(7);
         b.add(6);
+        b.add(8);
+        b.add(4);
+        b.add(12);
+        b.add(20);
+
         System.out.println(b);
     }
 
