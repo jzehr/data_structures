@@ -21,9 +21,8 @@ public class IndexTree {
     // it takes in two pieces of data rather than one
     // call your recursive add method
     public void add(String word, int lineNumber){
-
+        this.root = add(this.root, word, lineNumber);
     }
-
 
 
     // your recursive method for add
@@ -31,10 +30,25 @@ public class IndexTree {
     // When you add the word to the index, if it already exists,
     // you want to  add it to the IndexNode that already exists
     // otherwise make a new indexNode
-    private index.IndexNode add(index.IndexNode root, String word, int lineNumber){
+    private index.IndexNode add(index.IndexNode root, String word, int lineNumber) {
+        if (root == null) {
+            //return new IndexNode;
+        }
+        int comparison = word.compareTo(root.word);
+        if (comparison == 0) {
+            System.out.println("do stuff here");
+            //update root with line number and number of occurences
+        } else if (comparison < 0) {
+            root.left = add(root.left, word, lineNumber);
+            return root;
+        } else {
+            root.left = add(root.left, word, lineNumber);
+            return root;
+        }
+
+
         return null;
     }
-
 
 
 
