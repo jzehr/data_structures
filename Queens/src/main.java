@@ -4,6 +4,7 @@ public class main {
     saw this clever trick to capture diagonal positions and
     row positions... decided to use it in my code
      */
+
     static int[] leftDiag = new int[100];
     static int[] rightDiag = new int[100];
     static int[] rowCheck = new int[100];
