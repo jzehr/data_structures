@@ -1,74 +1,97 @@
 package index;
 
+//package com.company;
 
 
-// Your class. Notice how it has no generics.
-// This is because we use generics when we have no idea what kind of data we are getting
-// Here we know we are getting two pieces of data:  a string and a line number
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.Scanner;
+
 public class IndexTree {
 
-    // This is your root
-    // again, your root does not use generics because you know your nodes
-    // hold strings, an int, and a list of integers
     private index.IndexNode root;
 
-    // Make your constructor
-    // It doesn't need to do anything
+    public IndexTree() {
+        this.root = null;
+    }
 
-    // complete the methods below
+    public IndexNode node() {
+        return this.root;
+    }
 
-    // this is your wrapper method
-    // it takes in two pieces of data rather than one
-    // call your recursive add method
     public void add(String word, int lineNumber){
         this.root = add(this.root, word, lineNumber);
     }
 
-
-    // your recursive method for add
-    // Think about how this is slightly different the the regular add method
-    // When you add the word to the index, if it already exists,
-    // you want to  add it to the IndexNode that already exists
-    // otherwise make a new indexNode
-    private index.IndexNode add(index.IndexNode root, String word, int lineNumber) {
+    private IndexNode add(IndexNode root, String word, int lineNumber) {
         if (root == null) {
-            //return new IndexNode;
+            return new IndexNode(word, lineNumber);
         }
         int comparison = word.compareTo(root.word);
         if (comparison == 0) {
-            System.out.println("do stuff here");
-            //update root with line number and number of occurences
+            root.list.add(lineNumber);
+            root.occurences += 1;
+            return root;
         } else if (comparison < 0) {
             root.left = add(root.left, word, lineNumber);
             return root;
         } else {
-            root.left = add(root.left, word, lineNumber);
+            root.right = add(root.right, word, lineNumber);
             return root;
         }
 
-
-        return null;
     }
 
+    private boolean contains(IndexNode root, String word) {
+        if (root == null) {
+            return false;
+        }
+        int compare = word.compareTo(root.word);
 
-
-    // returns true if the word is in the index
-    public boolean contains(String word){
-        return false;
+        if (compare == 0) {
+            return true;
+        } else if (compare < 0) {
+            return contains(root.left, word);
+        } else {
+            return contains(root.right, word);
+        }
     }
 
-    // call your recursive method
-    // use book as guide
     public void delete(String word){
-
+        this.root = delete(this.root, word);
     }
 
-    // your recursive case
-    // remove the word and all the entries for the word
-    // This should be no different than the regular technique.
-    private index.IndexNode delete(index.IndexNode root, String word){
-        return null;
+    private IndexNode delete(IndexNode root, String word) {
+        if (root == null) {
+            return null;
+        }
+        int compare = word.compareTo(root.word);
+
+        if (compare < 0) {
+            root.left = delete(root.left, word);
+            return root;
+        } else if(compare > 0){
+            root.right = delete(root.right, word);
+            return root;
+        }else{
+            if (root.left == null && root.right == null) {
+                return null;
+            } else if (root.left != null && root.right == null) {
+                return root.left;
+            } else if (root.left == null && root.right != null) {
+                return root.right;
+            } else{
+                IndexNode current = root.left;
+                while(current.right != null){
+                    current = current.right;
+                }
+                root.word = current.word;
+                root.left = delete(root.left, root.word);
+                return root;
+            }
+        }
     }
+
 
 
     // prints all the words in the index in inorder order
@@ -76,18 +99,79 @@ public class IndexTree {
     // this should print out each word followed by the number of occurrences and the list of all occurrences
     // each word and its data gets its own line
     public void printIndex(){
+        System.out.println("Printing Index");
+    }
 
+    public String toString(){
+        StringBuilder sb = new StringBuilder();
+        preOrderTrav(root, 1, sb);
+        return sb.toString();
+    }
+
+    private String toString(IndexNode root){
+        if(root == null){
+            return "";
+        }
+        String output = "";
+        output += toString(root.left);
+        output += root.word + " ";
+        output += toString(root.right);
+        return output;
+
+    }
+
+    private void preOrderTrav(IndexNode root, int occurence, StringBuilder sb){
+        for (int i = 0; i < occurence; i++) {
+            sb.append("  ");
+        }
+        if(root == null){
+            sb.append("null\n");
+        }else{
+            sb.append(root.toString());
+            sb.append("\n");
+            preOrderTrav(root.left, occurence + 1, sb);
+            preOrderTrav(root.right, occurence + 1, sb);
+        }
     }
 
     public static void main(String[] args){
         IndexTree index = new IndexTree();
+        int lineCount = 0;
 
-        // add all the words to the tree
+        System.out.println("Starting process the input file");
 
-        // print out the index
+        try {
+            Scanner scanner = new Scanner(new File("Module 11 files/.idea/pg100.txt"));
+            while(scanner.hasNextLine()){
+                String line = scanner.nextLine();
+                lineCount += 1;
 
-        // test removing a word from the index
+                String[] words = line.split("\\s+");
+                for(String word : words) {
+                    word = word.replaceAll(":", "");
+                    word = word.replaceAll("'", "");
+                    word = word.replaceAll(",", "");
+                    word = word.replaceAll("\\.", "");
+                    word = word.replaceAll(" ", "");
+                    word = word.replaceAll("}", "");
+                    word = word.replaceAll("-", "");
+                    word = word.replaceAll(";", "");
+                    word = word.replaceAll("\\?", "");
+                    word = word.replaceAll("!", "");
+                    word = word.replaceAll("\"", "");
+                    word = word.replaceAll(" ", "");
+                    if(word.equals("")){
+                        continue;
+                    }
+                    index.add(word, lineCount);
+                }
 
-
+            }
+            scanner.close();
+        } catch (FileNotFoundException e1) {
+            e1.printStackTrace();
+        }
+        System.out.println(index);
     }
 }
+
