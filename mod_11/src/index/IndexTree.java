@@ -1,15 +1,12 @@
 package index;
 
-//package com.company;
-
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
 
 public class IndexTree {
 
-    private index.IndexNode root;
+    private IndexNode root;
 
     public IndexTree() {
         this.root = null;
@@ -104,7 +101,7 @@ public class IndexTree {
 
     public String toString(){
         StringBuilder sb = new StringBuilder();
-        preOrderTrav(root, 1, sb);
+        inOrderTrav(root, sb);
         return sb.toString();
     }
 
@@ -120,17 +117,13 @@ public class IndexTree {
 
     }
 
-    private void preOrderTrav(IndexNode root, int occurence, StringBuilder sb){
-        for (int i = 0; i < occurence; i++) {
-            sb.append("  ");
-        }
-        if(root == null){
-            sb.append("null\n");
-        }else{
-            sb.append(root.toString());
+    private void inOrderTrav(IndexNode root, StringBuilder sb){
+        if (root == null) {
             sb.append("\n");
-            preOrderTrav(root.left, occurence + 1, sb);
-            preOrderTrav(root.right, occurence + 1, sb);
+        } else {
+            inOrderTrav(root.left,  sb);
+            sb.append(root.toString());
+            inOrderTrav(root.right, sb);
         }
     }
 
