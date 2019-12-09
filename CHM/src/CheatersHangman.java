@@ -25,7 +25,7 @@ public class CheatersHangman {
                 int charCount = line.length();
                 if(mainDictionary.containsKey(charCount)){
                     List list =  mainDictionary.get(charCount);
-                    list.add(line);
+                    list.add(line.toLowerCase());
                     mainDictionary.put(charCount, list);
                 }else{
                     List list = new ArrayList();
@@ -98,7 +98,7 @@ public class CheatersHangman {
                 }
             }
         }
-        
+
         System.out.println(wordChoices);
 
 
